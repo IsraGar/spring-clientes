@@ -1,0 +1,10 @@
+insert into customer (name, lastname, email, create_at) VALUES ('Israel', 'Garcia', 'imgarcia@mail.com', '2024-01-22');
+insert into customer (name, lastname, email, create_at) VALUES ('Juan', 'Gomez', 'jugomez@mail.com', '2024-01-22');
+insert into customer (name, lastname, email, create_at) VALUES ('Roberto', 'Lopez', 'rolopez@mail.com', '2024-01-23');
+insert into customer (name, lastname, email, create_at) VALUES ('Maria', 'Escamilla', 'maescamilla@mail.com', '2024-01-23');
+insert into customer (name, lastname, email, create_at) VALUES ('Daniel', 'Sanchez', 'dasanchez@mail.com', '2024-01-24');
+insert into customer (name, lastname, email, create_at) VALUES ('Rosa', 'Hernandez', 'rohernandez@mail.com', '2024-01-24');
+insert into customer (name, lastname, email, create_at) VALUES ('Marina', 'Fernandez', 'mafernandez@mail.com', '2024-01-25');
+insert into customer (name, lastname, email, create_at) VALUES ('Karen', 'Rodriguez', 'karodriguez@mail.com', '2024-01-25');
+insert into customer (name, lastname, email, create_at) VALUES ('Rodrigo', 'Martinez', 'romartinez@mail.com', '2024-01-26');
+insert into customer (name, lastname, email, create_at) VALUES ('Samuel', 'Galicia', 'sagalicia@mail.com', '2024-01-27');
