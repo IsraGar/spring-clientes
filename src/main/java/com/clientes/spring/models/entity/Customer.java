@@ -20,6 +20,11 @@ public class Customer implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime createdAt;
 
+    @PrePersist
+    public void prePersist(){
+        createdAt = LocalDateTime.now();
+    }
+
     public Long getId() {
         return id;
     }
