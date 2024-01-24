@@ -1,6 +1,9 @@
 package com.clientes.spring.models.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -12,10 +15,15 @@ public class Customer implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
+    @NotEmpty(message = "Name field must not be empty")
+    @Size(min = 3, max = 15, message = "The field allows a minimum of 3 characters and a maximum of 15")
     private String name;
     @Column(nullable = false)
+    @NotEmpty(message = "Lastname field must not be empty")
     private String lastname;
     @Column(nullable = false, unique = true)
+    @NotEmpty(message = "Email field must not be empty")
+    @Email(message = "Invalid format to email field")
     private String email;
     @Column(name = "create_at")
     @Temporal(TemporalType.TIMESTAMP)

@@ -2,15 +2,20 @@ package com.clientes.spring.controllers;
 
 import com.clientes.spring.models.entity.Customer;
 import com.clientes.spring.models.services.ICustomerService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
@@ -43,9 +48,20 @@ public class CustomerRestController {
     }
 
     @PostMapping("create")
-    public ResponseEntity<?> createCustomer(@RequestBody Customer customer){
+    public ResponseEntity<?> createCustomer(@Valid @RequestBody Customer customer, BindingResult result){
         Customer newCustomer = null;
         Map<String, Object> response = new HashMap<>();
+
+        if(result.hasErrors()){
+            List<String> errors = result.getFieldErrors()
+                            .stream()
+                                    .map(err -> "Field: " + err.getField() + ", Error: " + err.getDefaultMessage())
+                                            .collect(Collectors.toList());
+
+            response.put("errors", errors);
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+        }
+
         try{
             newCustomer = this.customerService.save(customer);
         }catch (DataAccessException e){
@@ -60,10 +76,20 @@ public class CustomerRestController {
     }
 
     @PutMapping("update/{id}")
-    public ResponseEntity<?> updateCustomer(@RequestBody Customer customer, @PathVariable("id") Long id){
+    public ResponseEntity<?> updateCustomer(@Valid @RequestBody Customer customer, BindingResult result, @PathVariable("id") Long id){
         Map<String, Object> response = new HashMap<>();
         Customer currentCustomer = this.customerService.findById(id);
         Customer updatedCustomer = null;
+
+        if(result.hasErrors()){
+            List<String> errors = result.getFieldErrors()
+                    .stream()
+                    .map(err -> "Field: " + err.getField() + ", Error: " + err.getDefaultMessage())
+                    .collect(Collectors.toList());
+
+            response.put("errors", errors);
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+        }
 
         if(currentCustomer == null){
             response.put("message", "The customer with ID: ".concat(id.toString()).concat(" does not exists in database."));
