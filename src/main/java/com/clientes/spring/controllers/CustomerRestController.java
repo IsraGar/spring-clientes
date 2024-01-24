@@ -10,27 +10,27 @@ import java.util.List;
 
 @CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
-@RequestMapping("api/")
+@RequestMapping("api/customers/")
 public class CustomerRestController {
     @Autowired
     private ICustomerService customerService;
-    @GetMapping("/customers")
+    @GetMapping("list")
     public List<Customer> getAllCustomer(){
         return this.customerService.findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("list/{id}")
     public Customer findById(@PathVariable("id") Long id){
         return this.customerService.findById(id);
     }
 
-    @PostMapping("/save")
+    @PostMapping("create")
     @ResponseStatus(HttpStatus.CREATED)
     public Customer createCustomer(@RequestBody Customer customer){
         return this.customerService.save(customer);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("update/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     public Customer updateCustomer(@RequestBody Customer customer, @PathVariable("id") Long id){
         Customer currentCustomer = this.customerService.findById(id);
@@ -40,7 +40,7 @@ public class CustomerRestController {
         return this.customerService.save(currentCustomer);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("delete/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCustomer(@PathVariable("id") Long id){
         this.customerService.deleteById(id);
