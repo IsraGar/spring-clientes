@@ -15,6 +15,7 @@ public class Customer implements Serializable {
     private String name;
     @Column(nullable = false)
     private String lastname;
+    @Column(nullable = false, unique = true)
     private String email;
     @Column(name = "create_at")
     @Temporal(TemporalType.TIMESTAMP)
